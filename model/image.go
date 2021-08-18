@@ -2,27 +2,16 @@ package models
 
 import (
 	"github.com/google/uuid"
-	"image"
-	"image/color"
 	"time"
 )
 
 type Image struct {
-    ID      uuid.UUID   `json:"imageId"`
-    Path    string      `json:"path"`
-    Time    time.Time      `json:"time"`
+    ImageID     uuid.UUID   `json:"id" validate:"required,uuid" gorm:"type:uuid;primary_key;"`
+    Path    	string      `json:"path"`
+    Time    	time.Time   `json:"time" gorm:"required"`
+    SenderID	uuid.UUID	//`json:"sender" gorm:"required;association_foreignKey:UserID;"`
+    ReceiverID	uuid.UUID	//`json:"receiver" gorm:"required;association_foreignKey:UserID;"`
 }
 
-func (i Image) ColorModel() color.Model {
-	panic("implement me")
-}
-
-func (i Image) Bounds() image.Rectangle {
-	panic("implement me")
-}
-
-func (i Image) At(x, y int) color.Color {
-	panic("implement me")
-}
 
 

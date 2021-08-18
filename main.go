@@ -29,9 +29,14 @@ func main() {
 		DB: dbConnection,
 	}
 
+	h.StartImageFetch()
+
 	router:= mux.NewRouter()
     router.Use(commonMiddleware)
 	router.Use(handlers.CORS())
+
+	router.HandleFunc("/", h.GetLatest).Methods("GET")
+	router.HandleFunc("/v1/user", h.CreateUser).Methods("PUT")
 
 	router.HandleFunc("/v1/image", h.RetrieveImages).Methods("GET")
     router.HandleFunc("/v1/image", h.CreateImage).Methods("PUT")
@@ -51,5 +56,4 @@ func main() {
     	ReadTimeout:  15 * time.Second,
     }
 	log.Fatal(srv.ListenAndServe())
-
 }

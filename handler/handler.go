@@ -30,8 +30,12 @@ func RespondWithSuccess(w http.ResponseWriter, v interface{}) {
 	RespondWithCode(w, http.StatusOK, v)
 }
 
-func ResponseWithCreated(w http.ResponseWriter, v interface{}) {
+func RespondWithCreated(w http.ResponseWriter, v interface{}) {
 	RespondWithCode(w, http.StatusCreated, v)
+}
+
+func RespondWithNotFound(w http.ResponseWriter, v interface{}) {
+	RespondWithCode(w, http.StatusNotFound, v)
 }
 
 func RespondWithCode(w http.ResponseWriter, code int, v interface{}) {
@@ -51,12 +55,10 @@ func RespondWithEmptyArray(w http.ResponseWriter) {
 }
 
 func RespondWithFile(w http.ResponseWriter, file []byte) {
+	w.Header().Set("Content-Type", "image/png")
 	w.WriteHeader(http.StatusOK)
-	w.Header().Set("Content-Type", "image/jpeg")
 	w.Write(file)
 }
-
-
 
 //func RespondWithImage(w http.ResponseWriter, image image.Image) {
 //	json.NewEncoder(w).Encode(image)

@@ -1,8 +1,11 @@
 package db
 
-//
-//type Image struct {
-//	ID			uuid.UUID `json:"boardId" validate:"required,uuid" gorm:"type:uuid;primary_key;"`
-//	FilePath	uuid.UUID `json:"contentId" validate:"required,uuid" gorm:"type:uuid;primary_key;"`
-//	SendDate	uint      `json:"order"`
+//type ImagesReceived struct {
+//	UserID		uuid.UUID		`json:"userId" validate:"required,uuid" gorm:"type:uuid;primary_key;"`
+//	Images		[]models.Image	`json:"images" gorm:"many2many:user_images;joinForeignKey:user_id,image_id;"`
+//}
+
+//type UserImages struct {
+//	UserID		uuid.UUID `json:"userId" validate:"required,uuid" gorm:"type:uuid;primary_key;"`
+//	ImageID		uuid.UUID `json:"imageId" validate:"required,uuid" gorm:"type:uuid;primary_key;"`
 //}
