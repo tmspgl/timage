@@ -28,8 +28,9 @@ func main() {
 	h := &handler.Handler{
 		DB: dbConnection,
 	}
-
-	h.StartImageFetch()
+	// Interval between DB check for images to send.
+	interval := 60 * time.Second
+	h.StartImageFetch(interval)
 
 	router:= mux.NewRouter()
     router.Use(commonMiddleware)

@@ -75,8 +75,8 @@ func (h *Handler) GetLatest(w http.ResponseWriter, r *http.Request) {
     RespondWithFile(w, fileBytes)
 }
 
-func (h *Handler) StartImageFetch() () {
-    ticker := time.NewTicker(10* time.Second)
+func (h *Handler) StartImageFetch(interval time.Duration) () {
+    ticker := time.NewTicker(interval)
     go func() {
         for {
             select {
@@ -86,6 +86,10 @@ func (h *Handler) StartImageFetch() () {
             }
         }
     }()
+}
+
+func (h *Handler) sendImage(){
+
 }
 
 func (h *Handler) SendLatest() (w http.ResponseWriter, r *http.Request) {
@@ -102,7 +106,7 @@ func (h *Handler) SendLatest() (w http.ResponseWriter, r *http.Request) {
         return nil, nil
     }
     for _, i := range a {
-        // send image here
+        // TODO sendImage()
         image := models.ImageStore{
             ImageID:    i.ImageID,
             Path:       i.Path,
@@ -115,7 +119,7 @@ func (h *Handler) SendLatest() (w http.ResponseWriter, r *http.Request) {
             log.Fatal(err)
 
             return
-        } else { //TODO only delete when other created
+        } else { //TODO only delete when entry was created before
             if err := h.DB.Delete(&i).Error; errors.Is(err, gorm.ErrRecordNotFound) {
                 log.Fatal(err)
             }
