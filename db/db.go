@@ -7,20 +7,13 @@ import (
 )
 
 func ConnectDB() (*gorm.DB, error) {
-	db, err := gorm.Open(sqlite.Open("local.db"), &gorm.Config{
-		//DisableAutomaticPing: true,
-		//DisableForeignKeyConstraintWhenMigrating: true,
-	})
+	db, err := gorm.Open(sqlite.Open("local.db"), &gorm.Config{})
 
 	if err != nil {
 		return nil, err
 	}
 
-	//if err := db.SetupJoinTable(&models.User{}, "Images", &UserImages{}); err != nil {
-	//	return nil, err
-	//}
-
-	if err := db.AutoMigrate(&models.Image{}, &models.User{}, &models.ImageStore{}); err != nil {
+	if err := db.AutoMigrate(&models.Image{}, &models.User{}, &models.Timer{}); err != nil {
 		return nil, err
 	}
 

@@ -5,12 +5,13 @@ import (
 )
 
 type User struct {
-	UserID          uuid.UUID	    `json:"id" validate:"required.uuid" gorm:"primary_key"`
-	Username     	string  		`json:"username" gorm:"required;"`
-	Email        	string  		`json:"email" gorm:"required;"`
-	Bio          	string  		`json:"bio;size:1024"`
-	Image        	*string 		`json:"image,omitempty"`
-	PasswordHash	string  		`gorm:"required;"`
-	CreatedAt		int				`json:"created_at" gorm:"autoCreateTime"`
-	ImagesSent		[]Image			`json:"images" gorm:"foreignKey:SenderID"`
+	ID             uuid.UUID `json:"id" validate:"required.uuid" gorm:"primary_key"`
+	Username       string    `json:"username" gorm:"required;"`
+	Email          string    `json:"email" gorm:"required;"`
+	Bio            string    `json:"bio"`
+	UserImage      uuid.UUID `json:"-"`
+	PasswordHash   string    `json:"-" gorm:"required;"`
+	CreatedAt      int       `json:"-" gorm:"autoCreateTime"`
+	ImageSent      []Image   `json:"sentImages" gorm:"foreignKey:SenderID;"`
+	ImagesReceived []Image   `json:"receivedImages" gorm:"foreignKey:ReceiverID;"`
 }
